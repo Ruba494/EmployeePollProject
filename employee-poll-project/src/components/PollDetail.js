@@ -25,6 +25,21 @@ function PollDetail({ questions, authedUser, users }) {
     answer: selectOption.optionOne === "selected" ? "optionOne" : "optionTwo",
   };
 
+  const optionOneStats = () => {
+    return (
+        (question.optionOne.votes.length /
+            (question.optionOne.votes.length + question.optionTwo.votes.length)) *
+        100
+    ).toFixed(2);
+  };
+
+  const optionTwoStats = () => {
+    return (
+        (question.optionTwo.votes.length /
+            (question.optionOne.votes.length + question.optionTwo.votes.length)) *
+        100
+    ).toFixed(2);
+  };
   const onAnswerSubmit = (e) => {
     e.preventDefault();
     dispatch(handleSaveAnswer(selectedOption));
@@ -81,6 +96,30 @@ function PollDetail({ questions, authedUser, users }) {
             </button>
           </div>
         </form>
+        <div className='card'>
+          {question.optionOne.votes.includes(authedUser) && (
+              <div>
+                <h5>
+                  {optionOneStats()}% of employees selected to{" "}
+                  {question.optionOne.text}
+                </h5>
+                <h5 className='votes'>
+                  {question.optionOne.votes.length} users voted for this answer
+                </h5>
+              </div>
+          )}
+          {question.optionTwo.votes.includes(authedUser) && (
+              <div>
+                <h5>
+                  {optionTwoStats()}% of employees selected to{" "}
+                  {question.optionTwo.text}
+                </h5>
+                <h5 className='votes'>
+                  {question.optionTwo.votes.length} users voted for this answer
+                </h5>
+              </div>
+          )}
+        </div>
       </div>
     </div>
   );
