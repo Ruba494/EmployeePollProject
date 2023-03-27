@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from "react";
 import { connect } from "react-redux";
-import Poll from './Poll'
 import PollCard from './PollCard'
 
 const Home = ({ authedUser, questions }) => {

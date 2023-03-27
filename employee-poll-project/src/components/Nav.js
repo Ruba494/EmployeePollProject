@@ -15,7 +15,7 @@ export const Nav = (props) => {
                 <Link to='/leaderboard'>Lead Board</Link>
             </li>
             <li key='new'>
-                <Link to='/add'>Lead Board</Link>
+                <Link to='/add'>New Poll</Link>
             </li>
         </ul>
         <div>

@@ -15,11 +15,19 @@ export const LogOut = (props) => {
     <div className='container'>
       <div className='user-profile'>
         <div className='user-profile-avatar'>
-          <img
-            src={avatarURL}
-            alt={`Avatar of ${name}`}
-            className='user-avatar'
-          />
+          {/*<img*/}
+          {/*  src={avatarURL}*/}
+          {/*  alt={`Avatar of ${name}`}*/}
+          {/*  className='user-avatar'*/}
+          {/*/>*/}
+          <div
+              className="user-avatar"
+              style={{
+                width: 20,
+                height: 20,
+                backgroundImage: `url(${avatarURL})`,
+              }}
+          ></div>
         </div>
         <div className='user-card'>
           <div className='user-info'>

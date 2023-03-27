@@ -21,8 +21,6 @@ function Leaderboard({ users, authedUser }) {
     );
   }, [users, authedUser]);
 
-  console.log(users);
-
   return (
     <div>
       <div>

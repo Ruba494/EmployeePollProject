@@ -1,7 +1,7 @@
 import {
     RECEIVE_QUESTIONS,
     ADD_QUESTION,
-    SAVE_QUESTION_ANSWER,
+    SAVE_ANSWER,
   } from "../actions/questions";
   
   export function questions(state = {}, action) {
@@ -15,17 +15,17 @@ import {
         return {
           ...state,
           ...questions,
-          [action.question.id]: action.question,
+          [action.q.id]: action.q,
         };
-      case SAVE_QUESTION_ANSWER:
-        const { authedUser, qid, answer } = action;
+      case SAVE_ANSWER:
+        const { authedUser, question_id, answer } = action;
         return {
           ...state,
-          [qid]: {
-            ...state[qid],
+          [question_id]: {
+            ...state[question_id],
             [answer]: {
-              ...state[qid][answer],
-              votes: state[qid][answer].votes.concat([authedUser]),
+              ...state[question_id][answer],
+              votes: state[question_id][answer].votes.concat([authedUser]),
             },
           },
         };

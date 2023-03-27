@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 
 export const LogIn = ({users,dispatch}) => {
 
-    const [selectUser, setSelectUser] = useState("");
+    const [selectedUser, setSelectedUser] = useState("");
     
     const handleLogin = (e) => {
       e.preventDefault();
-      dispatch(setAuthedUser(selectUser));
+      dispatch(setAuthedUser(selectedUser));
     };
   
-    const disabled = selectUser === "";
+    const unselected = selectedUser === "";
     
     return (
       <div className='login-container'>
@@ -32,14 +32,14 @@ export const LogIn = ({users,dispatch}) => {
                     name='user'
                     className='user-select'
                     value={user.id}
-                    onChange={(e) => setSelectUser(e.target.value)}
+                    onChange={(e) => setSelectedUser(e.target.value)}
                   />
                   <label>{user.name}</label>
                 </div>
               );
             })}
           </div>
-          <button className='btn' onClick={handleLogin} disabled={disabled}>
+          <button className='btn' onClick={handleLogin} disabled={unselected}>
             Log in
           </button>
         </form>

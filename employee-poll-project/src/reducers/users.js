@@ -10,14 +10,14 @@ export function users(state = {}, action) {
         ...action.users,
       };
     case ADD_ANSWER_TO_USER:
-      const { authedUser, qid, answer } = action;
+      const { authedUser, question_id, answer } = action;
       return {
         ...state,
         [authedUser]: {
           ...state[authedUser],
           answers: {
             ...state[authedUser].answers,
-            [qid]: answer,
+            [question_id]: answer,
           },
         },
       };

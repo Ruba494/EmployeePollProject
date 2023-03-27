@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { useParams,useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { handleSaveQuestionAnswer } from "../actions/shared.js";
+import { handleSaveAnswer } from "../actions/shared.js";
 import { formatDate } from "../utils/helpers";
-import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 function PollDetail({ questions, authedUser, users }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { question_id } = useParams();
-  let question = questions.find((question) => question.id === question_id);
+  let question = questions.find((question) => question.id === question_id.trim());
   let author = users[question.author];
   let timestamp = question.timestamp;
 
@@ -19,41 +18,23 @@ function PollDetail({ questions, authedUser, users }) {
     optionTwo: "",
   });
 
-  const optionOneStats = () => {
-    return (
-      (question.optionOne.votes.length /
-        (question.optionOne.votes.length + question.optionTwo.votes.length)) *
-      100
-    ).toFixed(2);
-  };
-
-  const optionTwoStats = () => {
-    return (
-      (question.optionTwo.votes.length /
-        (question.optionOne.votes.length + question.optionTwo.votes.length)) *
-      100
-    ).toFixed(2);
-  };
 
   const selectedOption = {
     authedUser: authedUser,
-    qid: question_id,
+    question_id: question_id,
     answer: selectOption.optionOne === "selected" ? "optionOne" : "optionTwo",
   };
 
-  const handleSubmit = (e) => {
+  const onAnswerSubmit = (e) => {
     e.preventDefault();
-    dispatch(handleSaveQuestionAnswer(selectedOption));
+    dispatch(handleSaveAnswer(selectedOption));
     setTimeout(() => {
       navigate("/");
-    }, 3500);
+    }, 1500);
   };
 
   return (
     <div>
-      <div>
-        <Nav />
-      </div>
       <div className='container'>
         <div className='question-info'>
           <img
@@ -64,7 +45,7 @@ function PollDetail({ questions, authedUser, users }) {
           <h4>{author.name}</h4>
           <h5>Asked at: {formatDate(timestamp)}</h5>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onAnswerSubmit}>
           <div className='form-group'>
             <h2>Would you rather:</h2>
             <div className='form-check'>
@@ -100,30 +81,6 @@ function PollDetail({ questions, authedUser, users }) {
             </button>
           </div>
         </form>
-        <div className='card'>
-          {question.optionOne.votes.includes(authedUser) && (
-            <div>
-              <h5>
-                {optionOneStats()}% of employees selected to{" "}
-                {question.optionOne.text}
-              </h5>
-              <h5 className='votes'>
-                {question.optionOne.votes.length} users voted for this answer
-              </h5>
-            </div>
-          )}
-          {question.optionTwo.votes.includes(authedUser) && (
-            <div>
-              <h5>
-                {optionTwoStats()}% of employees selected to{" "}
-                {question.optionTwo.text}
-              </h5>
-              <h5 className='votes'>
-                {question.optionTwo.votes.length} users voted for this answer
-              </h5>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

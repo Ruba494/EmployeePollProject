@@ -1,7 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
+import { connect } from 'react-redux'
 import {formatDate,formatQuestion} from '../utils/helpers'
+
 export const PollCard = (props) => {
     const navigate = useNavigate();
 

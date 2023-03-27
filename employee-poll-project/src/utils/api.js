@@ -2,7 +2,7 @@ import {
     _getUsers,
     _getQuestions,
     _saveQuestion,
-    _saveQuestionAnswer
+    _saveAnswer
   } from './_DATA';
   
   export function getInitialData() {
@@ -18,6 +18,6 @@ import {
     return _saveQuestion(info);
   }
   
-  export function saveQuestionAnswer(info) {
-    return _saveQuestionAnswer(info);
+  export function saveAnswer(info) {
+    return _saveAnswer(info);
   }

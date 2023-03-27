@@ -178,10 +178,10 @@ export function _saveQuestion (question) {
     })
 }
 
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+export function _saveAnswer ({ authedUser, question_id, answer }) {
     return new Promise((resolve, reject) => {
-        if (!authedUser || !qid || !answer) {
-            reject("Please provide authedUser, qid, and answer");
+        if (!authedUser || !question_id || !answer) {
+            reject("Please provide authedUser, question_id, and answer");
         }
 
         setTimeout(() => {
@@ -191,18 +191,18 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
                     ...users[authedUser],
                     answers: {
                         ...users[authedUser].answers,
-                        [qid]: answer
+                        [question_id]: answer
                     }
                 }
             }
 
             questions = {
                 ...questions,
-                [qid]: {
-                    ...questions[qid],
+                [question_id]: {
+                    ...questions[question_id],
                     [answer]: {
-                        ...questions[qid][answer],
-                        votes: questions[qid][answer].votes.concat([authedUser])
+                        ...questions[question_id][answer],
+                        votes: questions[question_id][answer].votes.concat([authedUser])
                     }
                 }
             }

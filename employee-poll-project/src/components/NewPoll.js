@@ -19,7 +19,7 @@ const NewPoll = () => {
     author: authedUser,
   };
 
-  const handleChange = (e) => {
+  const onSelectChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
 
@@ -31,9 +31,8 @@ const NewPoll = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const onAnswerSubmit = (e) => {
     e.preventDefault();
-    console.log("The New Question:", optionOneText, optionTwoText);
     dispatch(handleAddQuestion(question));
     setOptionOneText("");
     setOptionTwoText("");
@@ -42,12 +41,9 @@ const NewPoll = () => {
 
   return (
     <div>
-      <div>
-        <Nav />
-      </div>
       <div className='container'>
         <h2 className='title-header'>Create New Question</h2>
-        <form onSubmit={handleSubmit} data-testid='new-question-form'>
+        <form onSubmit={onAnswerSubmit} data-testid='new-question-form'>
           <div className='form-group'>
             <label>Would you Rather:</label>
             <input
@@ -55,7 +51,7 @@ const NewPoll = () => {
               name='optionOneText'
               data-testid='optionOneText'
               value={question.optionOneText}
-              onChange={handleChange}
+              onChange={onSelectChange}
               className='form-control'
               placeholder='Option One'
             />
@@ -65,7 +61,7 @@ const NewPoll = () => {
               name='optionTwoText'
               data-testid='optionTwoText'
               value={question.optionTwoText}
-              onChange={handleChange}
+              onChange={onSelectChange}
               className='form-control'
               placeholder='Option Two'
             />

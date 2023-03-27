@@ -1,10 +1,10 @@
 import { saveQuestion } from "../utils/api";
-import { showLoading, hideLoading } from "react-redux-loading-bar";
 import { addQuestionToUser } from "./users";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
-export const SAVE_QUESTION_ANSWER = "SAVE_QUESTION_ANSWER";
+export const SAVE_ANSWER = "SAVE_ANSWER";
 
 export function receiveQuestions(questions) {
   return {
@@ -13,29 +13,29 @@ export function receiveQuestions(questions) {
   };
 }
 
-function addQuestion(question) {
+function addQuestion(q) {
   return {
     type: ADD_QUESTION,
-    question,
+    q,
   };
 }
 
-export function handleAddQuestion(question) {
+export function handleAddQuestion(q) {
   return (dispatch) => {
     dispatch(showLoading());
-    return saveQuestion(question).then((question) => {
-      dispatch(addQuestion(question));
-      dispatch(addQuestionToUser(question));
+    return saveQuestion(q).then((q) => {
+      dispatch(addQuestion(q));
+      dispatch(addQuestionToUser(q));
       dispatch(hideLoading());
     });
   };
 }
 
-export function savePollAnswer({ authedUser, qid, answer }) {
+export function savePollAnswer({ authedUser, question_id, answer }) {
   return {
-    type: SAVE_QUESTION_ANSWER,
+    type: SAVE_ANSWER,
     authedUser,
-    qid,
+    question_id,
     answer,
   };
 }
