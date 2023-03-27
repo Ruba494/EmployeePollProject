@@ -1,31 +1,36 @@
-import {RECEIVE_QUESTIONS, SAVE_VOTE, ADD_QUESTION,} from "../actions/questions";
-
-const questions = (state = {}, action) => {
+import {
+    RECEIVE_QUESTIONS,
+    ADD_QUESTION,
+    SAVE_QUESTION_ANSWER,
+  } from "../actions/questions";
+  
+  export function questions(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_QUESTIONS:
-            return {
-                ...state,
-                ...action.questions,
-            };
-        case SAVE_VOTE:
-            return {
-                ...state,
-                [action.questionId]: {
-                    ...state[action.questionId],
-                    [action.answer]: {
-                        ...state[action.questionId][action.answer],
-                        votes: [...state[action.questionId][action.answer].votes, action.authedUser],
-                    },
-                },
-            };
-        case ADD_QUESTION:
-            return {
-                ...state,
-                [action.question.id]: action.question,
-            };
-        default:
-            return state;
+      case RECEIVE_QUESTIONS:
+        return {
+          ...state,
+          ...action.questions,
+        };
+      case ADD_QUESTION:
+        return {
+          ...state,
+          ...questions,
+          [action.question.id]: action.question,
+        };
+      case SAVE_QUESTION_ANSWER:
+        const { authedUser, qid, answer } = action;
+        return {
+          ...state,
+          [qid]: {
+            ...state[qid],
+            [answer]: {
+              ...state[qid][answer],
+              votes: state[qid][answer].votes.concat([authedUser]),
+            },
+          },
+        };
+      default:
+        return state;
     }
-};
-
-export default questions;
+  }
+  

@@ -1,27 +1,27 @@
-export const RECEIVE_USERS='RECEIVE_USERS';
-export const CREATE_QUESTION = "CREATE_QUESTION";
-export const SAVE_ANSWER = "SAVE_ANSWER";
+export const RECEIVE_USERS = "RECEIVE_USERS";
+export const ADD_ANSWER_TO_USER = "ADD_ANSWER_TO_USER";
+export const ADD_QUESTION_TO_USER = "ADD_QUESTION_TO_USER";
 
-export const receiveUsers =(users)=>{
-    return{
-        type:RECEIVE_USERS,
-        users
-    }
+export function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users,
+  };
 }
 
-export const createQuestion = ({ id, author }) => {
-    return {
-        type: CREATE_QUESTION,
-        id,
-        author,
-    };
-};
+export function addAnswerToUser({ authedUser, qid, answer }) {
+  return {
+    type: ADD_ANSWER_TO_USER,
+    authedUser,
+    qid,
+    answer,
+  };
+}
 
-export const saveAnswer = (userId, questionId, answerId) => {
-    return {
-        type: SAVE_ANSWER,
-        authedUser: userId,
-        questionId: questionId,
-        answer: answerId,
-    };
-};
+export function addQuestionToUser({ id, author }) {
+  return {
+    type: ADD_QUESTION_TO_USER,
+    id,
+    author,
+  };
+}

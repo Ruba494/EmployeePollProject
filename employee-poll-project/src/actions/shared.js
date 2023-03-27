@@ -1,39 +1,30 @@
-import {_getQuestions, _getUsers, _saveQuestion, _saveQuestionAnswer} from '../utils/_DATA'
-import {createQuestion, receiveUsers, saveAnswer} from "./users";
-import {addQuestion, receiveQuestions, saveVote} from "./questions";
-import {showLoading, hideLoading} from "react-redux-loading-bar";
+import { getInitialData, saveQuestionAnswer } from "../utils/api";
+import { receiveQuestions, savePollAnswer } from "./questions";
+import { receiveUsers, addAnswerToUser } from "./users";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 
-export const handleInitialData = () => async (dispatch) => {
+export function handleInitialData() {
+  return async (dispatch) => {
     dispatch(showLoading());
-    const users=await _getUsers()
-    const questions=await _getQuestions()
-    dispatch(receiveUsers(users));
-    dispatch(receiveQuestions(questions));
-    dispatch(hideLoading());
-};
 
-export const handleSaveQuestionAnswer = (questionId, answerId) => (dispatch, getState) => {
-    const { authedUser } = getState();
-    dispatch(showLoading());
-    dispatch(saveAnswer(authedUser, questionId, answerId));
-    dispatch(saveVote(authedUser, questionId, answerId));
-    dispatch(hideLoading());
-    return _saveQuestionAnswer({authedUser, questionId, answerId});
-};
+    return await getInitialData().then(({ users, questions }) => {
+      dispatch(receiveUsers(users));
+      dispatch(receiveQuestions(questions));
+      dispatch(hideLoading());
+    });
+  };
+}
 
-export const createPoll = (optionOne, optionTwo) => async (dispatch, getState) => {
-    const { authedUser } = getState();
+export function handleSaveQuestionAnswer(info) {
+  return async (dispatch) => {
     dispatch(showLoading());
-    try {
-        const question = await _saveQuestion({
-            author: authedUser,
-            optionOne,
-            optionTwo,
-        });
-        dispatch(createQuestion(question));
-        dispatch(addQuestion(question));
-    } catch (e) {
-        console.error("Error in createPoll: ", e);
-    }
-    dispatch(hideLoading());
-};
+    dispatch(addAnswerToUser(info));
+    dispatch(savePollAnswer(info));
+
+    return await saveQuestionAnswer(info).catch((e) => {
+      dispatch(savePollAnswer(info));
+      dispatch(addAnswerToUser(info));
+      console.warn("Error in handleSaveQuestionAnswer: ", e);
+    });
+  };
+}
