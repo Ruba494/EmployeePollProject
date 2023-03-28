@@ -1,14 +1,13 @@
-import React, { Fragment,useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import {Routes,Route} from 'react-router-dom'
-import Home from './Home'
-import LeadBoard from './LeadBoard'
-import NewPoll from './NewPoll'
-import Poll from './Poll'
-import LogIn from './LogIn'
-import Nav from './Nav'
-import {handleInitialData} from "../actions/shared";
-
+import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import LeadBoard from "./LeadBoard";
+import NewPoll from "./NewPoll";
+import Poll from "./Poll";
+import LogIn from "./LogIn";
+import Nav from "./Nav";
+import { handleInitialData } from "../actions/shared";
 
 const App = (props) => {
   useEffect(() => {
@@ -21,13 +20,13 @@ const App = (props) => {
         <Nav />
         <div>
           <Routes>
-            {props.authedUser === null  ?  (
+            {props.authedUser === null ? (
               <>
                 <Fragment>
                   <Route path="*" element={<LogIn />} />
                 </Fragment>
               </>
-            ):(
+            ) : (
               <>
                 <Fragment>
                   <Route exact path="/" element={<Home />} />
@@ -44,7 +43,7 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = ({ authedUser}) => ({
+const mapStateToProps = ({ authedUser }) => ({
   authedUser,
 });
 export default connect(mapStateToProps)(App);

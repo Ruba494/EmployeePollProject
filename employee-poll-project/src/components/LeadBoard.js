@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Nav from "./Nav";
+import "./styles/Leadboard.css";
 
 function Leaderboard({ users, authedUser }) {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -23,15 +23,12 @@ function Leaderboard({ users, authedUser }) {
 
   return (
     <div>
-      <div>
-        <Nav />
-      </div>
-      <div className='leaderboard-container'>
-        <div className='leaderboard-header'>
+      <div className="leaderboard-container">
+        <div className="leaderboard-header">
           <h2>Leaderboard</h2>
         </div>
-        <div className='leaderboard-body'>
-          <table className='Leaderboard-table'>
+        <div className="leaderboard-body">
+          <table className="Leaderboard-table">
             <thead>
               <tr>
                 <th>Users</th>
@@ -43,11 +40,11 @@ function Leaderboard({ users, authedUser }) {
               {leaderboard.map((user) => {
                 return (
                   <tr key={user.name}>
-                    <td className='user-data'>
+                    <td className="user-data">
                       <img
                         src={user.avatarURL}
                         alt={user.name}
-                        className='avatar'
+                        className="avatar"
                       />
                       {user.name}
                     </td>
