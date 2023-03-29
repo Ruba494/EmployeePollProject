@@ -66,3 +66,9 @@ h3 {
   text-decoration: none;
    list-style-type: none;
 }
+
+.title-wrapper{
+  cursor: pointer;
+  width: 100%;
+  background-color: aliceblue;
+}

@@ -49,6 +49,7 @@ function PollDetail({ questions, authedUser, users }) {
     //   navigate("/");
     // }, 1500);
   };
+  let isAnswered=question.optionOne.votes.includes(authedUser)||question.optionTwo.votes.includes(authedUser)
   return (
     <div>
       <div className="container">
@@ -71,7 +72,7 @@ function PollDetail({ questions, authedUser, users }) {
                   name="option"
                   value="optionOne"
                   className="form-check-input"
-                  checked={selectOption.optionOne === "selected"}
+                  checked={!isAnswered?selectOption.optionOne === "selected":question.optionOne.votes.includes(authedUser)?true:false}
                   onChange={(e) =>
                     setSelectOption({
                       optionOne: "selected",
@@ -86,7 +87,7 @@ function PollDetail({ questions, authedUser, users }) {
                   name="option"
                   value="optionTwo"
                   className="form-check-input"
-                  checked={selectOption.optionTwo === "selected"}
+                  checked={!isAnswered?selectOption.optionTwo === "selected":question.optionTwo.votes.includes(authedUser)?true:false}
                   onChange={(e) =>
                     setSelectOption({
                       optionTwo: "selected",
@@ -95,15 +96,15 @@ function PollDetail({ questions, authedUser, users }) {
                 />
                 <label>{question.optionTwo.text}</label>
               </div>
-              <button
-                className="btn"
-                type="submit"
-                disabled={
-                  selectOption.optionOne === "" || selectOption.optionTwo === ""
-                }
+              {!isAnswered&& <button
+                  className="btn"
+                  type="submit"
+                  disabled={
+                      selectOption.optionOne === "" || selectOption.optionTwo === ""
+                  }
               >
                 Submit
-              </button>
+              </button>}
             </div>
           </form>
         {(question.optionOne.votes.includes(authedUser)||question.optionTwo.votes.includes(authedUser))&&<div className="card">
