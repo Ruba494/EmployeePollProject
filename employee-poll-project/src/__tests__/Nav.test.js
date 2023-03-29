@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import Nav from "../components/Nav";
 
-it("should render an empty message when no books", () => {
+it("should render an empty message when no Nav", () => {
   const elem = renderer
     .create(
       <Provider store={store}>

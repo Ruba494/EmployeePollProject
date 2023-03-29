@@ -12,7 +12,6 @@ function PollDetail({ questions, authedUser, users }) {
   let question = questions.find(
     (question) => question.id === question_id.trim()
   );
-  console.log("question", question);
   let author = users[question.author];
   let timestamp = question.timestamp;
 
@@ -46,11 +45,10 @@ function PollDetail({ questions, authedUser, users }) {
   const onAnswerSubmit = (e) => {
     e.preventDefault();
     dispatch(handleSaveAnswer(selectedOption));
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
+    // setTimeout(() => {
+    //   navigate("/");
+    // }, 1500);
   };
-
   return (
     <div>
       <div className="container">
@@ -64,10 +62,6 @@ function PollDetail({ questions, authedUser, users }) {
           <h5>Asked at: {formatDate(timestamp)}</h5>
         </div>
 
-        {question.optionOne.votes.includes(authedUser) ||
-        question.optionTwo.votes.includes(authedUser) ? (
-          <></>
-        ) : (
           <form onSubmit={onAnswerSubmit}>
             <div className="form-group">
               <h2>Would you rather:</h2>
@@ -112,31 +106,28 @@ function PollDetail({ questions, authedUser, users }) {
               </button>
             </div>
           </form>
-        )}
-        <div className="card">
-          {question.optionOne.votes.includes(authedUser) && (
-            <div>
-              <h5>
-                {optionOneStats()}% of employees and You have selected to{" "}
-                {question.optionOne.text}
-              </h5>
-              <h5 className="votes">
-                {question.optionOne.votes.length} users voted for this answer
-              </h5>
-            </div>
-          )}
-          {question.optionTwo.votes.includes(authedUser) && (
-            <div>
-              <h5>
-                {optionTwoStats()}% of employees and You have selected to
-                {question.optionTwo.text}
-              </h5>
-              <h5 className="votes">
-                {question.optionTwo.votes.length} users voted for this answer
-              </h5>
-            </div>
-          )}
-        </div>
+        {(question.optionOne.votes.includes(authedUser)||question.optionTwo.votes.includes(authedUser))&&<div className="card">
+          <h5> you've
+            answered {question.optionOne.votes.includes(authedUser) ? question.optionOne.text : question.optionTwo.text}</h5>
+          <div>
+            <h5>
+              {optionOneStats()}% of employees selected to{" "}
+              {question.optionOne.text}
+            </h5>
+            <h5 className="votes">
+              {question.optionOne.votes.length} users voted for this answer
+            </h5>
+          </div>
+          <div>
+            <h5>
+              {optionTwoStats()}% of employees selected to
+              {question.optionTwo.text}
+            </h5>
+            <h5 className="votes">
+              {question.optionTwo.votes.length} users voted for this answer
+            </h5>
+          </div>
+        </div>}
       </div>
     </div>
   );

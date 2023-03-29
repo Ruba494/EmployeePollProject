@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should render an empty message when no Nav 1`] = `
+<nav
+  className="nav"
+>
+  <ul>
+    <li>
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        Home
+      </a>
+    </li>
+    <li>
+      <a
+        href="/leaderboard"
+        onClick={[Function]}
+      >
+        Lead Board
+      </a>
+    </li>
+    <li>
+      <a
+        href="/add"
+        onClick={[Function]}
+      >
+        New Poll
+      </a>
+    </li>
+  </ul>
+  <div />
+</nav>
+`;
+
 exports[`should render an empty message when no books 1`] = `
 <nav
   className="nav"

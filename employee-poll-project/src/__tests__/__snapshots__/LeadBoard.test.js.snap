@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render an empty message when no LeadBoard 1`] = `
+<div>
+  <div
+    className="leaderboard-container"
+  >
+    <div
+      className="leaderboard-header"
+    >
+      <h2>
+        Leaderboard
+      </h2>
+    </div>
+    <div
+      className="leaderboard-body"
+    >
+      <table
+        className="Leaderboard-table"
+      >
+        <thead>
+          <tr>
+            <th>
+              Users
+            </th>
+            <th>
+              Answered
+            </th>
+            <th>
+              Created
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>
+</div>
+`;

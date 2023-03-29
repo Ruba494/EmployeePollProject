@@ -12,7 +12,7 @@ import { handleInitialData } from "../actions/shared";
 const App = (props) => {
   useEffect(() => {
     props.dispatch(handleInitialData());
-  }, [props]);
+  });
 
   return (
     <>

@@ -178,7 +178,7 @@ export function _saveQuestion (question) {
     })
 }
 
-export function _saveAnswer ({ authedUser, question_id, answer }) {
+export function _saveQuestionAnswer ({ authedUser, question_id, answer }) {
     return new Promise((resolve, reject) => {
         if (!authedUser || !question_id || !answer) {
             reject("Please provide authedUser, question_id, and answer");

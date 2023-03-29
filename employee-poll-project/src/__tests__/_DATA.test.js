@@ -1,5 +1,5 @@
 import { _saveQuestion } from "../utils/_DATA";
-import { _saveAnswer } from "../utils/_DATA";
+import { _saveQuestionAnswer } from "../utils/_DATA";
 
 jest.setTimeout(30000);
 
@@ -27,9 +27,9 @@ describe("_saveQuestion", () => {
   });
 });
 
-describe("_saveAnswer", () => {
+describe("_saveQuestionAnswer", () => {
   it("should return true when correct", async () => {
-    const answer = _saveAnswer({
+    const answer = _saveQuestionAnswer({
       authedUser: "tylermcginnis",
       question_id: "vthrdm985a262al8qx3do",
       answer: "optionTwo",
@@ -44,8 +44,19 @@ describe("_saveAnswer", () => {
       authedUser: "user",
       question_id: "question_id",
     };
-    await expect(_saveAnswer(question)).rejects.toEqual(
+    await expect(_saveQuestionAnswer(question)).rejects.toEqual(
       "Please provide authedUser, question_id, and answer"
     );
   });
+
+  it("should throw an error if one of the required fields is missing", async () => {
+    const question = {
+      authedUser: "user",
+      answer: "optionTwo",
+    };
+    await expect(_saveQuestionAnswer(question)).rejects.toEqual(
+        "Please provide authedUser, question_id, and answer"
+    );
+  });
 });
+
